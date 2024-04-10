@@ -5,27 +5,27 @@ import pygame
 import sys
 
 # Defineerime funktsiooni, mis joonistab ruudustiku ekraanile
-def draw_grid(screen, square_size, rows, cols, line_color):
+def ruudustik(ekraan, ruudu_suurus, read, veerud, joone_värv):
     # Läbime kõik read
-    for i in range(rows):
+    for rida in range(read):
         # Läbime kõik veerud
-        for j in range(cols):
+        for veerg in range(veerud):
             # Määrame iga ruudu asukoha ja suuruse pygame.Rect objekti abil
-            rect = pygame.Rect(j*square_size, i*square_size, square_size, square_size)
+            ruut = pygame.Rect(veerg*ruudu_suurus, rida*ruudu_suurus, ruudu_suurus, ruudu_suurus)
             # Joonistame ruudu ekraanile antud asukohas ja suuruses
-            pygame.draw.rect(screen, line_color, rect, 1)
+            pygame.draw.rect(ekraan, joone_värv, ruut, 1)
 
 # Initsialiseerime Pygame'i
 pygame.init()
 
 # Määrake ekraani suurus
-screen = pygame.display.set_mode((640, 480))
+ekraan = pygame.display.set_mode((640, 480))
 
-# Määrake ruudu suurus, ridade ja veergude arv ning joone värv
-square_size = 20
-rows = screen.get_height() // square_size
-cols = screen.get_width() // square_size
-line_color = (230, 0, 0)  # punane
+# Määrab ruudu suuruse, ridade ja veergude arvu ning joone värvi
+ruudu_suurus = 20
+read = ekraan.get_height() // ruudu_suurus
+veerud = ekraan.get_width() // ruudu_suurus
+joone_värv = (230, 0, 0)  # punane
 
 while True:
     # Ootame sündmust (nt kasutaja akna sulgemist)
@@ -34,10 +34,10 @@ while True:
         break  
 
     # Täidame ekraani heleda rohelise värviga
-    screen.fill((153, 255, 153))  
+    ekraan.fill((153, 255, 153))  
 
     # Joonistame ruudustiku ekraanile
-    draw_grid(screen, square_size, rows, cols, line_color)
+    ruudustik(ekraan, ruudu_suurus, read, veerud, joone_värv)
 
     # Värskendame ekraani
     pygame.display.flip()
